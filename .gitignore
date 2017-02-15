@@ -1,0 +1,7 @@
+/.settings/
+/.project
+node_modules/
+.idea/
+./privatebug.md
+private/
+all-old/
