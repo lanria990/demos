@@ -1,0 +1,47 @@
+/*W3cplus 大漠 https://github.com/W3cplus/SassMagic/tree/master/src/mixins*/
+
+/******全屏********/
+.full-width {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.full-width {
+    /*width: 100vw;*/
+    /*transform: translateX(calc(( 960px - 100vw ) / 2));*/
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+}
+
+.full-width img {
+    width: 100%;
+    max-width: 100%;
+}
+
+/*清除浮动*/
+.fix:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.fix {
+    *zoom: 1; /**ie6、7**/
+}
+
+/*浮动与两侧皆自适应的流体布局*/
+.cell {
+    display: table-cell;
+    *display: inline-block; /**ie6、7**/
+    width: 9999px;
+    *width: auto; /**ie6、7**/
+}
+
+.cell__img {
+    float: left;
+    margin-right: 20px;
+}
