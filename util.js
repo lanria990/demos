@@ -92,4 +92,41 @@ export  function uniqueArray(array) {
   return  Array.from(new Set(array))
 }
 
+/**
+ * 获取url参数
+ *  https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/append
+ *  IE不兼容
+ * @param search eg.'src=so.com&data=1&data=2'
+ * @param name
+ * @returns {string|null}
+ */
+export function getUrlParams(search = window.location.search, name) {
+    let params = new URLSearchParams(search); //'src=so.com&data=1&data=2'
+    // params.has('src'); //true
+    // params.get('data'); //1
+    // params.getAll('data'); // ["1", "2"]
+    // params.append("q","hello");//undefined
+    // params.append("data","world");//undefined
+    // params.delete('src');//undefined
+    // params.toString();//data=1&data=2&q=hello&data=world
+    return params.get(name);
+}
+
+/**
+ * 浏览器中用JS分享内容到微信
+ * @param title
+ * @param text
+ * @param url
+ * @returns {Promise}
+ */
+export function shareWeixin(title, text, url) {
+    return navigator.share({
+        title,
+        text,
+        url
+    });
+    // .then(()  => console.log('Successful share'))
+    //  .catch(()  => console.log('Error sharing:', error));
+}
+
 export utils;
