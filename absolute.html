@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>absolute 定位</title>
+    <link rel="stylesheet" href="static/css/init.css">
+
+    <style>
+        /* 设置滚动条的样式 */
+        ::-webkit-scrollbar {
+            background: transparent;
+            width: 8px;
+            height: 8px;
+        }
+
+        /* 滚动槽 */
+        ::-webkit-scrollbar-track {
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            background-color: transparent;
+        }
+
+        /* 滚动条滑块 */
+        ::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            background-color: #e1e1e1;
+            width: 6px;
+            height: 6px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #d5d5d5;
+        }
+
+        ::-webkit-scrollbar-thumb:active {
+            background-color: #c8c8c8;
+        }
+
+        html, body, .page {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .header, .footer, .container {
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+
+        .header {
+            background: #333;
+            height: 50px;
+        }
+
+        .footer {
+            bottom: 0;
+            background: #fcfcfc;
+            border-top: 1px solid #dfdfdf;
+            height: 50px;
+            display: flex;
+        }
+
+        .container {
+            top: 50px;
+            bottom: 50px;
+            overflow: auto;
+        }
+
+        .header h1 {
+            float: left;
+            margin-left: 10px;
+            line-height: 50px;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .list {
+            display: block;
+            padding: 8px 12px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #d7d7d7;
+
+            /*overflow: hidden;*/
+        }
+
+        .list:last-child {
+            border-bottom: 0;
+        }
+
+        .list > img {
+            width: 48px;
+            height: 48px;
+            float: left;
+        }
+
+        .cell {
+            padding-left: 58px;
+            line-height: 24px;
+            color: #333;
+        }
+
+        .time {
+            overflow: hidden;
+        }
+
+        .time h5 {
+            float: left;
+            font-size: 100%;
+        }
+
+        .time time {
+            float: right;
+            font-size: 12px;
+            color: #b9b9b9;
+        }
+
+        .time + p {
+            margin: 0 20px 0 0;
+            font-size: 14px;
+            color: #a8a8a8;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .footer a {
+            flex: 1;
+            text-align: center;
+            float: left;
+            font-size: 14px;
+            color: #999;
+
+        }
+
+        .footer i {
+            display: block;
+            font-size: 28px;
+            margin-bottom: -3px;
+            line-height: 35px;
+        }
+
+        .footer a.active {
+            color: #45c018;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="header">
+        <h1>慕课网</h1>
+    </div>
+    <div class="container">
+        <a href="#" class="list">
+            <img src="static/images/1.png"/>
+            <div class="cell">
+                <div class="time"><h5>yangjl</h5>
+                    <time>03/17 08:00</time>
+                </div>
+                <p>绝对定位,......</p>
+            </div>
+        </a>
+        <a href="#" class="list">
+            <img src="static/images/1.png"/>
+            <div class="cell">
+                <div class="time"><h5>yangjl</h5>
+                    <time>03/17 08:00</time>
+                </div>
+                <p>绝对定位,......</p>
+            </div>
+        </a>
+        <a href="#" class="list">
+            <img src="static/images/1.png"/>
+            <div class="cell">
+                <div class="time"><h5>yangjl</h5>
+                    <time>03/17 08:00</time>
+                </div>
+                <p>绝对定位,......</p>
+            </div>
+        </a>
+        <a href="#" class="list">
+            <img src="static/images/1.png"/>
+            <div class="cell">
+                <div class="time"><h5>yangjl</h5>
+                    <time>03/17 08:00</time>
+                </div>
+                <p>绝对定位,......</p>
+            </div>
+        </a>
+        <a href="#" class="list">
+            <img src="static/images/1.png"/>
+            <div class="cell">
+                <div class="time"><h5>yangjl</h5>
+                    <time>03/17 08:00</time>
+                </div>
+                <p>绝对定位,......</p>
+            </div>
+        </a>
+        <a href="#" class="list">
+            <img src="static/images/1.png"/>
+            <div class="cell">
+                <div class="time"><h5>yangjl</h5>
+                    <time>03/17 08:00</time>
+                </div>
+                <p>绝对定位,......</p>
+            </div>
+        </a>
+        <a href="#" class="list">
+            <img src="static/images/1.png"/>
+            <div class="cell">
+                <div class="time"><h5>yangjl</h5>
+                    <time>03/17 08:00</time>
+                </div>
+                <p>绝对定位,......</p>
+            </div>
+        </a>
+        <a href="#" class="list">
+            <img src="static/images/1.png"/>
+            <div class="cell">
+                <div class="time"><h5>yangjl</h5>
+                    <time>03/17 08:00</time>
+                </div>
+                <p>绝对定位,......</p>
+            </div>
+        </a>
+    </div>
+    <div class="footer">
+        <a href="#">
+            <i class="iconfont">&#xe690;</i> 消息
+        </a>
+        <a href="#" class="active">
+            <i class="iconfont">&#xe690;</i> 动态
+        </a>
+        <a href="#">
+            <i class="iconfont">&#xe690;</i> 联系人
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

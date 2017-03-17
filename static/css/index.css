@@ -1,0 +1,48 @@
+/*init*/
+
+.item{
+  height: 250px;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+  margin: 15px;
+  float: left;
+  position: relative;
+}
+.item a{
+  display: block;
+}
+.item:after{
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-bottom: 50px solid transparent;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  pointer-events: none;
+  z-index: -1;
+}
+.item.css3 :after {
+  border-right-color:#0080b0
+}
+.item h2{
+  margin: 10px 15px;
+}
+
+.grid{
+  /*display: flex;*/
+  /*width: 100%;*/
+  max-width: 1150px;
+  margin: 0 auto;
+  /*grid-template-columns: repeat(4, 1fr);*/
+  /*grid-gap: 20px;*/
+  /*min-width: 760px;*/
+}
+.grid .grid-1{
+  width: 220px;
+
+  /*grid-column: 1;*/
+  /*grid-row: 1;*/
+}
+.grid .grid-3{
+  /*width: 700px;*/
+}
