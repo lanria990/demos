@@ -42,9 +42,10 @@ header{
     color: #fff;
 }
 .txt p{
-    line-height: 1.2em;
+    line-height: 1.45;
     margin: 0;
-    font-size: 0.85em;
+    font-size: 0.75em;
+    padding-top: 0.5em;
 }
 .nav{
     box-shadow:  0 4px 5px -6px rgba(83,84,84,0.48);
