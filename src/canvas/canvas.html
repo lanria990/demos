@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        canvas {
+            width: 300px;
+            /*min-height:200px;*/
+            background: #ddd;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas2"></canvas>
+<canvas id="canvas1"></canvas>
+<script>
+    var canvas2 = document.querySelector("#canvas2");
+    var context2 = canvas2.getContext("2d");
+    // 画背景
+    context2.fillStyle = "#FD0";
+    context2.fillRect(0, 0, 75, 75);
+    context2.fillStyle = '#6C0';
+    context2.fillRect(75, 0, 75, 75);
+    context2.fillStyle = '#09F';
+    context2.fillRect(0, 75, 75, 75);
+    context2.fillStyle = '#F30';
+    context2.fillRect(75, 75, 75, 75);
+    // 设置透明度值
+    context2.fillStyle = '#FFF'
+    context2.globalAlpha = 0.2;
+    // 画半透明圆
+    for (var i = 0; i < 7; i++) {
+        context2.beginPath();
+        context2.arc(75, 75, 10 + 10 * i,0, Math.PI * 2, true);
+        context2.fill();
+//        context2.closePath();
+    }
+
+    var canvas = document.querySelector("#canvas1");
+    var context = canvas.getContext("2d");
+    context.fillStyle = "rgb(200,0,0)";
+    context.fillRect(10, 10, 55, 50);
+    context.fillStyle = "rgba(0, 0, 200, 0.5)";
+    context.fillRect(30, 30, 55, 50);//填充矩形
+    context.fillStyle = "rgba(0, 0, 0, 0.5)";
+    context.strokeRect(50, 50, 55, 50);//矩形的边框
+    context.fillStyle = "rgba(255, 255, 255)";
+    context.clearRect(70, 70, 55, 50);//清除指定矩形区域，让清除部分完全透明
+    //绘制三角形
+    context.beginPath()
+    context.moveTo(180, 10);
+    context.lineTo(150, 10);
+    context.lineTo(180, 30);
+    context.fillStyle = "pink";
+    context.fill();
+    context.closePath();
+
+    //绘制圆形
+    context.beginPath();
+    context.arc(180, 100, 50, 0, 2 * Math.PI, true);
+    context.fillStyle = "#000";
+    context.stroke();
+    context.closePath();
+
+    context.beginPath();
+    context.moveTo(160, 85);//移动到切点
+    context.arc(155, 85, 5, 0, 2 * Math.PI, true);
+    //    context.fillStyle = "#000";
+    context.moveTo(195, 85); //移动到切点
+    context.arc(190, 85, 5, 0, 2 * Math.PI, true);
+    context.moveTo(210, 110);
+    context.arc(180, 110, 30, 0, 1 * Math.PI, false);
+    context.stroke();
+    context.closePath();
+</script>
+</body>
+</html>
