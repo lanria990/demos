@@ -8,18 +8,106 @@
     <title>Document</title>
     <style>
         canvas {
-            width: 300px;
+            min-width: 300px;
+            margin: 10px;
             /*min-height:200px;*/
             background: #ddd;
         }
     </style>
 </head>
 <body>
-<canvas id="canvas2"></canvas>
-<canvas id="canvas1"></canvas>
+<!--<canvas id="canvas2"></canvas>-->
+<!--<canvas id="canvas1"></canvas>-->
 <script>
-    var canvas2 = document.querySelector("#canvas2");
-    var context2 = canvas2.getContext("2d");
+    function creatCanvas() {
+        let canvas = document.createElement('canvas');
+        document.body.append(canvas);
+        return canvas.getContext("2d");
+    }
+    var context8 = creatCanvas();
+    context8.shadowOffsetX = 2;
+    context8.shadowOffsetY = 2;
+    context8.shadowBlur = 2;
+    context8.shadowColor =  "rgba(0, 0, 0, 0.5)";
+    context8.font = "20px Times New Roman";
+    context8.fillStyle ="Black";
+    context8.fillText("文字阴影",5,30);
+
+
+
+    var context7 = creatCanvas();
+    context7.beginPath();
+    context7.arc(50, 50, 30, 0, Math.PI*2, true);
+    context7.arc(50, 50, 15, 0, Math.PI*2, true);
+    context7.fill("evenodd");
+
+    var context6 = creatCanvas();
+    var linear = context6.createLinearGradient(0,0,0,150);
+    linear.addColorStop(0, '#00ABEB');
+    linear.addColorStop(0.5, '#fff');
+    var radgrad  = context6.createRadialGradient(50,50,10,62,60,50);
+
+    radgrad.addColorStop(0, '#A7D30C');
+    radgrad.addColorStop(0.9, '#019F62');
+    radgrad.addColorStop(1, 'rgba(1,159,98,0)');
+    context6.lineWidth = 15;
+    context6.strokeStyle = linear;
+    context6.fillStyle = radgrad;
+    context6.fillRect(10,10,130,130);
+    context6.strokeRect(50,50,50,50);
+
+    //dash offset
+    var context5 = creatCanvas();
+    var offset = 0;
+    function draw() {
+        context5.clearRect(0, 0, 100, 100)
+        context5.strokeRect(10, 10, 100, 100);
+        context5.setLineDash([4, 2]);
+        context5.lineDashOffset = -offset;
+    }
+    function march() {
+        offset++;
+        if (offset > 16) {
+            offset = 0;
+        }
+        draw();
+        setTimeout(march, 20)
+    }
+    march();
+
+
+    var context4 = creatCanvas();
+
+    for (var i = 0; i < 10; i++) {
+        context4.lineWidth = 1 + i;
+        context4.beginPath();
+        context4.moveTo(5 + i * 14, 5);
+        context4.lineTo(5 + i * 14, 140);
+        context4.stroke();
+    }
+    //对话框 心形
+    var context3 = creatCanvas();
+    context3.beginPath();
+    context3.moveTo(75, 25);
+    context3.quadraticCurveTo(25, 25, 25, 62.5);
+    context3.quadraticCurveTo(25, 100, 50, 100);
+    context3.quadraticCurveTo(50, 120, 30, 125);
+    context3.quadraticCurveTo(60, 120, 65, 100);
+    context3.quadraticCurveTo(125, 100, 125, 62.5);
+    context3.quadraticCurveTo(125, 25, 75, 25);
+
+    context3.moveTo(275, 40);
+    context3.bezierCurveTo(275, 37, 270, 25, 250, 25);
+    context3.bezierCurveTo(220, 25, 220, 62.5, 220, 62.5);
+    context3.bezierCurveTo(220, 80, 240, 102, 325, 120);
+    context3.bezierCurveTo(310, 102, 330, 80, 330, 62.5);
+    context3.bezierCurveTo(330, 62.5, 330, 25, 300, 25);
+    context3.bezierCurveTo(285, 25, 325, 37, 325, 40);
+    context3.fill();
+    //    context3.stroke();
+    context3.closePath();
+
+    var context2 = creatCanvas();
     // 画背景
     context2.fillStyle = "#FD0";
     context2.fillRect(0, 0, 75, 75);
@@ -35,13 +123,12 @@
     // 画半透明圆
     for (var i = 0; i < 7; i++) {
         context2.beginPath();
-        context2.arc(75, 75, 10 + 10 * i,0, Math.PI * 2, true);
+        context2.arc(75, 75, 10 + 10 * i, 0, Math.PI * 2, true);
         context2.fill();
 //        context2.closePath();
     }
 
-    var canvas = document.querySelector("#canvas1");
-    var context = canvas.getContext("2d");
+    var context = creatCanvas();
     context.fillStyle = "rgb(200,0,0)";
     context.fillRect(10, 10, 55, 50);
     context.fillStyle = "rgba(0, 0, 200, 0.5)";
