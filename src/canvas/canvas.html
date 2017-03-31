@@ -16,36 +16,68 @@
     </style>
 </head>
 <body>
+<div id="frame"></div>
 <!--<canvas id="canvas2"></canvas>-->
 <!--<canvas id="canvas1"></canvas>-->
+<img src="../../static/images/1.jpg" height="501" width="700" style="display: none"/>
 <script>
     function creatCanvas() {
         let canvas = document.createElement('canvas');
         document.body.append(canvas);
         return canvas.getContext("2d");
     }
+    var arr9 = ['../../static/images/1.jpg', '../../static/images/1.png'];
+    var img = document.querySelector('img');
+    var context10 = creatCanvas();
+    var n10 = 0;
+    function clipDraw() {
+        if (n10 > Math.max(img.width, img.height) / 30) {
+            n10 = 0;
+            return;
+        }
+        n10 ++;
+        //canvas
+        var dx = 0;
+        var dy = 0;
+        var dWidth = Math.min(n10 * 10 + 1, img.width);
+        var dHeight = Math.min(n10 * 10 + 1, img.height);
+
+        //图像的
+        var sx = 0;
+        var sy = 0;
+        var sWidth = dWidth * 2; //宽度缩放
+        var sHeight = dHeight * 2;
+        context10.drawImage(img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight); //裁剪
+        setTimeout(clipDraw, 400);
+    }
+    clipDraw();
+    var context9 = creatCanvas();
+    context9.drawImage(img, 15, 20, 200, 150); //压缩
+
+
+    //文字
     var context8 = creatCanvas();
     context8.shadowOffsetX = 2;
     context8.shadowOffsetY = 2;
     context8.shadowBlur = 2;
-    context8.shadowColor =  "rgba(0, 0, 0, 0.5)";
+    context8.shadowColor = "rgba(0, 0, 0, 0.5)";
     context8.font = "20px Times New Roman";
-    context8.fillStyle ="Black";
-    context8.fillText("文字阴影",5,30);
-
+    context8.fillStyle = "Black";
+    context8.fillText("文字阴影", 5, 30);
+    console.log(context8.measureText("文字阴影"))
 
 
     var context7 = creatCanvas();
     context7.beginPath();
-    context7.arc(50, 50, 30, 0, Math.PI*2, true);
-    context7.arc(50, 50, 15, 0, Math.PI*2, true);
+    context7.arc(50, 50, 30, 0, Math.PI * 2, true);
+    context7.arc(50, 50, 15, 0, Math.PI * 2, true);
     context7.fill("evenodd");
 
     var context6 = creatCanvas();
-    var linear = context6.createLinearGradient(0,0,0,150);
+    var linear = context6.createLinearGradient(0, 0, 0, 150);
     linear.addColorStop(0, '#00ABEB');
     linear.addColorStop(0.5, '#fff');
-    var radgrad  = context6.createRadialGradient(50,50,10,62,60,50);
+    var radgrad = context6.createRadialGradient(50, 50, 10, 62, 60, 50);
 
     radgrad.addColorStop(0, '#A7D30C');
     radgrad.addColorStop(0.9, '#019F62');
@@ -53,8 +85,8 @@
     context6.lineWidth = 15;
     context6.strokeStyle = linear;
     context6.fillStyle = radgrad;
-    context6.fillRect(10,10,130,130);
-    context6.strokeRect(50,50,50,50);
+    context6.fillRect(10, 10, 130, 130);
+    context6.strokeRect(50, 50, 50, 50);
 
     //dash offset
     var context5 = creatCanvas();
