@@ -21,21 +21,236 @@
 <!--<canvas id="canvas1"></canvas>-->
 <img src="../../static/images/1.jpg" height="501" width="700" style="display: none"/>
 <script>
+    //https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Advanced_animations
     function creatCanvas() {
         let canvas = document.createElement('canvas');
         document.body.append(canvas);
         return canvas.getContext("2d");
     }
-    var arr9 = ['../../static/images/1.jpg', '../../static/images/1.png'];
+    function drawSpirograph(ctx, R, r, O) {
+        var x1 = R - O;
+        var y1 = 0;
+        var i = 1;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        do {
+            if (i > 20000) break;
+            var x2 = (R + r) * Math.cos(i * Math.PI / 72) - (r + O) * Math.cos(((R + r) / r) * (i * Math.PI / 72));
+            var y2 = (R + r) * Math.sin(i * Math.PI / 72) - (r + O) * Math.sin(((R + r) / r) * (i * Math.PI / 72))
+            ctx.lineTo(x2, y2);
+            x1 = x2;
+            y1 = y2;
+            i++;
+        } while (x2 != R - O && y2 != 0);
+        ctx.stroke();
+    }
+
+    function drawStar(ctx, r) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(r, 0);
+        for (let i = 0; i < 9; i++) {
+            ctx.rotate(Math.PI / 5);
+            if (i % 2 == 0) {
+                ctx.lineTo((r / 0.525731) * 0.2000811, 0)
+            } else {
+                ctx.lineTo(r, 0);
+            }
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+    }
+    //循环全景照片
+    var img18 = new Image();
+    img18.src = 'https://mdn.mozillademos.org/files/4553/Capitan_Meadows,_Yosemite_National_Park.jpg';
+    var scale = 0.5;
+    var CanvasXSize = 300;
+    var CanvasYSize = 150;
+    var clear = {x: 800, y: 200};
+    var x18 = 0;
+    var imgW, imgH;
+    var context18 = creatCanvas();
+    var y18 = -4.5;
+    var dx = 0.75;
+    img18.onload = function () {
+        imgW = img.width * 1.5;
+        imgH = img.height * scale;
+        clear.x = imgW > CanvasXSize ? imgW : CanvasXSize;
+        clear.y = imgH > CanvasYSize ? imgH : CanvasYSize;
+        x18 = imgW - CanvasXSize > 0 ? 0 : CanvasXSize - imgW;
+        window.requestAnimationFrame(draw18)
+    }
+
+    function draw18() {
+        context18.clearRect(0, 0, clear.x, clear.y);
+        if (imgW <= CanvasXSize) {
+            if (x18 > CanvasXSize) {
+                x18 = 0;
+            }
+            if (x18 > (CanvasXSize - imgW)) {
+                context18.drawImage(img18, x18 - CanvasXSize+1, y18, imgW, imgH);
+            }
+        }else {
+            if (x18 > (CanvasXSize)) { x18 = CanvasXSize-imgW; }
+            if (x18 > (CanvasXSize-imgW)) { context18.drawImage(img18,x18-imgW+1,y18,imgW,imgH); }
+        }
+        context18.drawImage(img18, x18, y18, imgW, imgH);
+        x18 += dx;
+        window.requestAnimationFrame(draw18)
+    }
+
+
+    //动画
+    var context17 = creatCanvas();
+    var sun = new Image();
+    var earth = new Image();
+    var moon = new Image();
+    sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
+    moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
+    earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
+    window.requestAnimationFrame(draw17)
+
+    function draw17() {
+        context17.globalCompositeOperation = 'destination-over';
+        context17.clearRect(0, 0, 150, 150);
+        context17.fillStyle = 'rgba(0,0,0,0.4)';
+        context17.strokeStyle = 'rgba(0,153,255,0.4)';
+        context17.save();
+        context17.translate(75, 75);
+
+        var time = new Date();
+        context17.rotate(((2 * Math.PI) / 60) * time.getSeconds() + ((2 * Math.PI) / 60000) * time.getMilliseconds());
+        context17.translate(50, 0);
+        context17.fillRect(0, -12, 18, 24);
+        context17.drawImage(earth, -12, -12);
+
+        context17.save();
+        context17.rotate(((2 * Math.PI) / 6) * time.getSeconds() + ((2 * Math.PI) / 6000) * time.getMilliseconds());
+        context17.translate(0, 22.5);
+        context17.drawImage(moon, -3.5, -3.5);
+        context17.restore();
+
+        context17.restore();
+        context17.beginPath();
+        context17.arc(75, 75, 50, 0, Math.PI * 2, false);
+        ;
+        context17.stroke();
+        context17.drawImage(sun, 0, 0, 150, 150);
+        window.requestAnimationFrame(draw17);
+    }
+    //裁剪
+    var context16 = creatCanvas();
+    context16.fillRect(0, 0, 150, 150);
+    context16.translate(75, 75);
+    context16.beginPath();
+    context16.arc(0, 0, 60, 0, Math.PI * 2, true);
+    context16.clip();
+
+    var lingrad = context16.createLinearGradient(0, -75, 0, 75);
+    lingrad.addColorStop(0, '#232256');
+    lingrad.addColorStop(1, '#143778');
+    context16.fillStyle = lingrad;
+    context16.fillRect(-75, -75, 150, 150);
+    for (var j = 1; j < 100; j++) {
+        context16.save();
+        context16.fillStyle = '#fff';
+        context16.translate(75 - Math.floor(Math.random() * 150),
+            75 - Math.floor(Math.random() * 150));
+        drawStar(context16, Math.floor(Math.random() * 4) + 2);
+        context16.restore();
+    }
+
+    //变形
+    var context15 = creatCanvas();
+    var sin = Math.sin(Math.PI / 6);
+    var cos = Math.cos(Math.PI / 6);
+    context15.translate(100, 80);
+    var c = 0;
+    for (var i = 0; i <= 12; i++) {
+        c = Math.floor(255 / 12 * i);
+        context15.fillStyle = "rgb(" + c + "," + c + "," + c + ")";
+        context15.fillRect(0, 0, 50, 5);
+        context15.transform(cos, sin, -sin, cos, 0, 0);
+    }
+    context15.setTransform(-1, 0, 0, 1, 50, 100)
+    context15.fillStyle = "rgba(255, 128, 255, 0.5)";
+    context15.fillRect(0, 50, 50, 100);
+
+    //缩放
+    var context14 = creatCanvas();
+    context14.strokeStyle = '#fc0';
+    context14.lineWidth = 1.5;
+    context14.fillRect(0, 0, 300, 300);
+    context14.save();
+    context14.translate(50, 50);
+    drawSpirograph(context14, 22, 6, 5)
+
+    context14.translate(100, 0);
+    context14.scale(0.75, 0.75);
+    drawSpirograph(context14, 22, 6, 5);
+
+    context14.translate(133, 0);
+    context14.scale(0.75, 0.75); //两次缩放 0.75*0.75
+    drawSpirograph(context14, 22, 6, 5);
+
+    context14.restore();
+    context14.restore();
+    context14.translate(253, 120);
+    context14.scale(1, 0.75); //缩放 0.75
+    drawSpirograph(context14, 22, 6, 5);
+    //旋转
+    var context13 = creatCanvas();
+    context13.translate(150, 75);
+    for (let i = 1; i < 6; i++) {
+        context13.save();
+        context13.fillStyle = 'rgb(' + (51 * i) + ',' + (255 - 51 * i) + ',255)';
+        for (let j = 0; j < i * 6; j++) {
+            context13.rotate(Math.PI * 2 / (i * 6));
+            context13.beginPath();
+            context13.arc(0, i * 12.5, 5, 0, Math.PI * 2, true);
+            context13.fill();
+        }
+        context13.restore();
+    }
+
+    //移动
+    var context12 = creatCanvas();
+    context12.fillRect(0, 0, 300, 300);
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            context12.save();
+            context12.strokeStyle = "#9CFF00";
+            context12.translate(50 + j * 100, 50 + i * 50);
+            drawSpirograph(context12, 20 * (j + 2) / (j + 1), -8 * (i + 3) / (i + 1), 10);
+            context12.restore();
+        }
+    }
+    //save restore
+    var context11 = creatCanvas();
+    context11.fillRect(0, 0, 150, 150);   // 使用默认设置绘制一个矩形
+    context11.save();// 保存默认状态 黑色
+    context11.fillStyle = '#09F';
+    context11.fillRect(15, 15, 120, 120);
+    context11.save();// 保存默认状态 蓝色
+    context11.fillStyle = '#FFF';
+    context11.globalAlpha = 0.5;
+    context11.fillRect(30, 30, 90, 90);
+    context11.restore();//恢复上一次，蓝色
+    context11.fillRect(45, 45, 60, 60);
+    context11.restore(); //恢复上一次，黑色
+    context11.fillRect(60, 60, 30, 30);
+
+    //图片缩放
     var img = document.querySelector('img');
     var context10 = creatCanvas();
     var n10 = 0;
     function clipDraw() {
         if (n10 > Math.max(img.width, img.height) / 30) {
             n10 = 0;
-            return;
+            context10.clearRect(0, 0, 300, 300);
         }
-        n10 ++;
+        n10++;
         //canvas
         var dx = 0;
         var dy = 0;
