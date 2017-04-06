@@ -1,4 +1,9 @@
 /**
+ * yangjl
+ * import * as utils from './dir/util.js';
+ */
+
+/**
  * 断言函数，阻断执行
  * @param 判断条件
  * @param 错误提示
@@ -129,4 +134,19 @@ export function shareWeixin(title, text, url) {
     //  .catch(()  => console.log('Error sharing:', error));
 }
 
-export utils;
+
+
+//http://2ality.com/2017/01/import-operator.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+2ality+%282ality+%E2%80%93+JavaScript+and+more%29
+/**
+ * 异步加载 案例
+ * @param  {[type]} waitModule 等待加载的模块
+ * @param  {[type]} allModule  加载的模块
+ */
+ export  async function asyncImport(waitModule,allModule) {
+    const myModule = await import(waitModule);
+    const {export1, export2} = await import(waitModule);
+    const allModule = await Promise.all(allModules.map(item=>import(item)));
+}
+
+
+
