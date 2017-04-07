@@ -21,6 +21,7 @@ header{
     right: 0;
     bottom: 0;
     z-index: -1;
+    background-attachment: fixed;
 }
 .circle{
     border-radius: 100%;
