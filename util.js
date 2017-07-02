@@ -45,6 +45,31 @@ export function deepCopy (obj, cache = []) {
     return copy
 }
 
+/**
+ * 深度copy,截断原型链
+ * @param target
+ */
+export function deepCopy (target) {
+  return JSON.parse(JSON.stringify(target || {}))
+}
+
+/**
+ * 拷贝属性
+ * @param target [Object[Object]]
+ * @param properties [Array[String]] 需要拷贝的属性
+ * @returns {{}}
+ */
+export function copyProperty (target, properties) {
+  const map = {}
+  Object.keys(target || {}).forEach(id => {
+    map[id] = {}
+    properties.forEach(key => {
+      map[key] = target[id][key]
+    })
+  })
+  return map
+}
+
 
 //测试一个字符由两个字节还是由四个字节
 function is32Bit(c) {
