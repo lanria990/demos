@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>demo 资源收藏整理</title>
     <link rel="stylesheet" href="static/css/init.css">
@@ -11,100 +11,51 @@
     <script src="../blogs/private/util.js"></script>
     <script src="util.js"></script>
 </head>
-<body>
-<header  >
- <div class="h_content">
-     <div class="bg"></div>
-     <img src="https://avatars3.githubusercontent.com/u/8067515?v=3&s=460" alt="" class="circle avatar"/>
-     <div class="txt">
-         <a ><h1>yangjl</h1></a>
-        <p>前端开发者<br/>喜欢代码，相信努力的人会更幸运。</p>
-     </div>
- </div>
-    <nav class="nav">
-        <ul>
-            <li><a href="https://github.com/lanria990" target="_blank">Github</a></li>
-            <li><a href="http://jsfiddle.net/user/yangjl/fiddles/"  target="_blank">JSFIDDLE</a></li>
-        </ul>
-    </nav>
-</header>
-<ul  class="grid">
-    <li class="grid-1">
-        <div class="item css3">
-            <a href="https://jsfiddle.net/yangjl/2wyvsmrb/" target="_blank">
-                <img src="static/images/demos/svg-aimate.gif"/>
-                <h2>SVG 动画 </h2>
-                <h3></h3>
-                <p>SVG 动画</p>
-            </a>
-        </div>
-    </li>
-    <li class="grid-1">
-        <div class="item css3">
-            <a href="src/3dimage.html">
-                <img src="static/images/demos/2.gif"/>
-                <h2>CSS3 翻转动画 </h2>
-                <h3></h3>
-                <p>CSS3 翻转动画</p>
-            </a>
-        </div>
-    </li>
-    <li class="grid-1">
-        <div class="item css3">
-            <a href="src/z-index.html">
-                <img src="static/images/demos/z-index.png"/>
-                <h2>立方体旋转 </h2>
-                <p>CSS3 动画-立方体旋转</p>
-            </a>
-        </div>
-    </li>
-    <li class="grid-1">
-        <div class="item css3">
-            <a href="src/cicada-principle-border-radius.html"><img
-                    src="static/images/demos/cicada-principle-border-radius.gif" />
-                <h2>蝉原则CSS3随机多背景随机圆角效果 </h2>
-                <p>CSS3 动画-蝉原则CSS3随机多背景随机圆角效果</p>
-            </a>
-        </div>
-    </li>
-    <li class="grid-1">
-        <div class="item javaScript">
-            <a href="src/infinite-scroll.html">
-                <img src="static/images/demos/infinite-scroll.gif" />
-                <h2>无限滚动 </h2>
-                <p>IntersectionObserver 无限滚动</p>
-            </a>
-        </div>
-    </li>
-    <li class="grid-1">
-        <div class="item javaScript">
-            <a href="./util.js" target="_blank">
-                <img src="static/images/demos/default.png" />
-                <h2>js代码片断收集</h2>
-                <p>有意思的代码片断收集</p>
-            </a>
-        </div>
-    </li>
-    <li class="grid-1">
-        <div class="item javaScript">
-            <a href="./src/collection.html">
-                <img src="static/images/demos/default.png" />
-                <h2>个人收藏夹</h2>
-                <p>常看的博客，常用的API...</p>
-            </a>
-        </div>
-    </li>
-    <li class="grid-1">
-        <div class="item javaScript">
-            <a href="https://lanria990.github.io/#blog">
-                <img src="static/images/demos/blog.png" />
-                <h2>个人站 </h2>
-                <p>使用jekky搭建的小博客，记录平常阅读的文章</p>
-            </a>
-        </div>
-    </li>
 
-</ul>
+<body>
+    <header>
+        <div class="h_content">
+            <div class="bg"></div>
+            <img src="https://avatars3.githubusercontent.com/u/8067515?v=3&s=460" alt="" class="circle avatar" />
+            <div class="txt">
+                <a>
+                    <h1>yangjl</h1>
+                </a>
+                <p>前端开发者<br/>喜欢代码，相信努力的人会更幸运。</p>
+            </div>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="https://github.com/lanria990" target="_blank">Github</a></li>
+                <li><a href="http://jsfiddle.net/user/yangjl/fiddles/" target="_blank">JSFIDDLE</a></li>
+            </ul>
+        </nav>
+    </header>
+    <ul class="grid" id="grid_content">
+
+    </ul>
+    <script>
+        window.onload = () => {
+            fetch('src/db.json').then(data => {
+                const grid_content = document.getElementById('grid_content')
+                const childrens = data.items.map(item => {
+                    return `<li class="grid-1">
+                    <div class="${item.categories.join(' ')}">
+                        <a href="${item.git_path}" target="_blank">
+                            <img src="${item.path}">
+                            <h2>${item.title} </h2>
+                            <h3></h3>
+                            <p>${item.desc}</p>
+                        </a>
+                    </div>
+                </li>`
+                })
+                grid_content.appendChild(childrens)
+            })
+
+        }
+    </script>
 
 </body>
+
 </html>
