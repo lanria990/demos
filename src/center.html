@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>实现水平垂直居中</title>
+    <style>
+        .box {
+            width: 100%;
+            height: 200px;
+            background: forestgreen;
+            color: #fff
+        }
+
+        .box-small {
+            width: 200px;
+            height: 100px;
+            background: rebeccapurple;
+        }
+    </style>
+</head>
+</head>
+
+<body>
+    <h1>实现水平垂直居中</h1>
+
+    <div>
+        布局中分为：文本布局，和模型本身布局，盒子与盒子之间的布局 盒模型：margin,border,padding,content, 盒子与盒子：脱离文档流的float,absolute 正常流 table,BFC,IFC,FFC,Grid,
+    </div>
+
+    <h3>文本布局 line-height,text-align:center</h3>
+    <div class="box" style="line-height: 200px;text-align:center">
+        <div>文本布局</div>
+
+    </div>
+    <p>适合单行文字的垂直居中,或者无文字的内容居中，例如图片</p>
+    <code>font-size:0/line-height: 0</code>
+    <div class="box" style="line-height: 200px;text-align:center">
+        <div class="box-small" style="display:inline-block;font-size:0;vertical-align: middle;"></div>
+    </div>
+
+    <h3>盒模型实现垂直居中</h3>
+    <p>margin:auto;margin-top:-webkit-calc((200px - 100px) / 2)</p>
+    <div class="box" style="overflow:hidden">
+        <div class="box-small" style="margin:auto;margin-top:-webkit-calc((200px - 100px) / 2)"></div>
+    </div>
+    <p>适合已知父亲层的高度，注意margin穿透的问题</p>
+    <p>padding-top: -webkit-calc((200px - 100px) / 2); box-sizing: border-box;</p>
+    <div class="box" style="overflow:hidden;padding-top:-webkit-calc((200px - 100px) / 2);">
+        <div class="box-small" style="margin:auto"></div>
+    </div>
+    <p>适合已知父亲层的高度</p>
+
+    <h3>盒子与盒子:relative</h3>
+    <div class="box" style="width: 80%;">
+        <div class="box-small" style=" position: relative;
+            left: 50%;
+            transform: translateY(50%) translateX(-50%)">
+            position: relative; left: 50%; transform: translateY(50%) translateX(-50%)
+        </div>
+    </div>
+    <h3>absolute+margin:auto</h3>
+    <div class="box" style="  position:relative;">
+        <div>
+            <div class="box-small" style="    position: absolute;    top: 0;    left: 0;    bottom: 0;    right: 0; margin:auto;"></div>
+        </div>
+
+    </div>
+    <h3>盒子与盒子:absolute</h3>
+    <div class="box" style="width: 80%;
+    position: relative; ">
+        <div class="box-small" style=" position: absolute;
+            left: 50%;
+            transform: translateY(50%) translateX(-50%)">
+            position: absolute; left: 50%; transform: translateY(50%) translateX(-50%)
+        </div>
+    </div>
+    <div class="box" style="width: 80%;
+    position: relative; ">
+        <div class="box-small" style=" position: absolute;
+            left: 50%;
+            transform: translateY(50%) translateX(-50%)">
+            position: absolute; left: 50%; transform: translateY(50%) translateX(-50%)
+        </div>
+    </div>
+    <p>需要父亲设置position为非static的属性，浏览器支持transform属性</p>
+
+    <h3>float+relative</h3>
+    <div class="box">
+        <div class="wrap" style="position: relative;    left: 50%;    top: 50%;    float: left;">
+            <div class="box-small" style="position: relative;    left: -50%;    transform: translate3d(0, -50%, 0);"></div>
+        </div>
+    </div>
+    <p>position:relative 相对于原位置移动，float让wrap元素收缩容器的宽度。让子元素的left:-50%有效</p>
+   
+    <h3>text-align+line-height</h3>
+    <div class="box" style="    text-align: center;    line-height: 200px;    font-size: 0;">
+        <div class="box-small" style="display: inline-block;    vertical-align: middle;"></div>
+    </div>
+    <h3>flex</h3>
+    <div class="box" style="    display: flex;    align-items: center;    justify-content: center;">
+        <div class="box-small"></div>
+    </div>
+    <h3>flex+margin:auto</h3>
+    <div class="box" style="    display: flex;   ">
+        <div class="box-small" style="margin:auto"></div>
+    </div>
+
+    <h3>grid +margin:auto </h3>
+    <div class="box" style="    display: grid;   ">
+        <div class="box-small" style="margin:auto"></div>
+    </div>
+    <h3>grid</h3>
+    <div class="box" style="    display: grid;   align-items: center;    justify-content: center;">
+        <div class="box-small">display: grid; align-items: center; justify-content: center;</div>
+    </div>
+    <h3>table</h3>
+    <div class="box" style="    display: table;">
+        <div class="wrap" style="    display: table-cell;    text-align: center;    vertical-align: middle;">
+            <div class="box-small" style="display: inline-table;"> table ,inline-table,table-cell</div>
+        </div>
+    </div>
+
+</html>
